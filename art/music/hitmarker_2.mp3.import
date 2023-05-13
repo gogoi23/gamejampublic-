@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/hitmarker_2.mp3-0d50443d9e885fcbdb5f090774fe8940.mp3str"
+
+[deps]
+
+source_file="res://art/music/hitmarker_2.mp3"
+dest_files=[ "res://.import/hitmarker_2.mp3-0d50443d9e885fcbdb5f090774fe8940.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
