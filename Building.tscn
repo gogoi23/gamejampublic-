@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.266667, 0.337255, 0.384314, 1 )
+
+[node name="CSGBox" type="CSGBox" groups=["detectivemode"]]
+material = SubResource( 1 )

@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Ramp.tres" type="Material" id=1]
+
+[node name="CSGCombiner" type="CSGCombiner" groups=["detectivemode"]]
+use_collision = true
+
+[node name="CSGBox" type="CSGBox" parent="."]
+width = 10.0
+height = 10.0
+depth = 30.0
+material = ExtResource( 1 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGBox"]
+transform = Transform( 1, 0, 0, 0, 0.931894, -0.362731, 0, 0.362731, 0.931894, 0, 4.30276, 4.38535 )
+operation = 2
+width = 10.0
+height = 10.0
+depth = 30.0
+material = ExtResource( 1 )

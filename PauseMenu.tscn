@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://art/quit_up.png" type="Texture" id=1]
+[ext_resource path="res://art/quit_down.png" type="Texture" id=2]
+[ext_resource path="res://art/resume_up.png" type="Texture" id=3]
+[ext_resource path="res://art/resume_down.png" type="Texture" id=4]
+[ext_resource path="res://art/ferrum.extra-condensed.otf" type="DynamicFontData" id=5]
+[ext_resource path="res://PauseMenu.gd" type="Script" id=6]
+
+[sub_resource type="DynamicFont" id=5]
+size = 101
+font_data = ExtResource( 5 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 5 )
+
+[node name="PauseMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 6 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.254902 )
+
+[node name="PauseLabel" type="Label" parent="."]
+anchor_top = 0.14
+anchor_right = 1.0
+anchor_bottom = 0.333
+margin_bottom = 0.199997
+theme = SubResource( 4 )
+text = "Paused"
+align = 1
+
+[node name="ResumeButton" type="TextureButton" parent="."]
+anchor_left = 0.406
+anchor_top = 0.48
+anchor_right = 0.595
+anchor_bottom = 0.567
+margin_left = 0.255981
+margin_right = -0.280029
+margin_bottom = -0.200012
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 4 )
+
+[node name="QuitButton" type="TextureButton" parent="."]
+anchor_left = 0.406
+anchor_top = 0.733
+anchor_right = 0.595
+anchor_bottom = 0.807
+margin_left = 0.255981
+margin_top = -7.80002
+margin_right = -0.280029
+margin_bottom = -0.200012
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 2 )
+
+[connection signal="pressed" from="ResumeButton" to="." method="_on_ResumeButton_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]

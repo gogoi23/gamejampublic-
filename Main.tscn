@@ -1,0 +1,155 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://RetryScreen.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Wall.tres" type="Material" id=4]
+[ext_resource path="res://default_env.tres" type="Environment" id=5]
+[ext_resource path="res://Plane.tscn" type="PackedScene" id=6]
+[ext_resource path="res://minimap.gd" type="Script" id=7]
+[ext_resource path="res://PauseMenu.tscn" type="PackedScene" id=11]
+[ext_resource path="res://SceneTransition.tscn" type="PackedScene" id=12]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.176471, 0.67451, 0.0705882, 1 )
+
+[sub_resource type="BoxShape" id=11]
+
+[sub_resource type="CylinderMesh" id=4]
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0.321569, 0.435294, 0.760784, 1 )
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_color = Color( 0.713726, 0.176471, 0.176471, 1 )
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_color = Color( 0.854902, 0.921569, 0.372549, 1 )
+
+[sub_resource type="SpatialMaterial" id=8]
+albedo_color = Color( 1, 0.360784, 0.917647, 1 )
+
+[node name="Main" type="Node"]
+script = ExtResource( 1 )
+
+[node name="CSGCombiner" type="CSGCombiner" parent="."]
+use_collision = true
+collision_layer = 8
+collision_mask = 3
+
+[node name="Floor" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
+width = 200.0
+height = 1.0
+depth = 200.0
+material = SubResource( 1 )
+
+[node name="Wall1" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -99, 5, 0 )
+height = 10.0
+depth = 200.0
+material = ExtResource( 4 )
+
+[node name="Wall2" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 99, 5, 0 )
+height = 10.0
+depth = 200.0
+material = ExtResource( 4 )
+
+[node name="Wall3" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -99 )
+width = 200.0
+height = 10.0
+material = ExtResource( 4 )
+
+[node name="Wall4" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 99 )
+width = 200.0
+height = 10.0
+material = ExtResource( 4 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="CSGCombiner"]
+margin_right = 170.0
+margin_bottom = 170.0
+
+[node name="Viewport" type="Viewport" parent="CSGCombiner/ViewportContainer"]
+size = Vector2( 170, 170 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Camera" type="Camera" parent="CSGCombiner/ViewportContainer/Viewport" groups=["detectiveMode"]]
+transform = Transform( 1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 787.287, -60.5064, 0 )
+script = ExtResource( 7 )
+target = NodePath("../../../../Player")
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
+collision_mask = 2
+
+[node name="AmmoSpawnArea" type="Area" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="AmmoSpawnArea"]
+transform = Transform( 60, 0, 0, 0, 1, 0, 0, 0, 60, 0, 2.21335, 0 )
+shape = SubResource( 11 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.56139, 0.827551, 0, -0.827551, -0.56139, 0, 53.5964, 0 )
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 5 )
+
+[node name="Plane" parent="WorldEnvironment" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -36.4208, 53.004, -59.3862 )
+
+[node name="Cylinders" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.35656, 0, 0 )
+visible = false
+
+[node name="testCylinder" type="MeshInstance" parent="Cylinders"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -87, 1, -86 )
+mesh = SubResource( 4 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 5 )
+
+[node name="testCylinder2" type="MeshInstance" parent="Cylinders"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 84, 1, -86 )
+mesh = SubResource( 4 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 6 )
+
+[node name="testCylinder3" type="MeshInstance" parent="Cylinders"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -87, 1, 86 )
+mesh = SubResource( 4 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 7 )
+
+[node name="testCylinder4" type="MeshInstance" parent="Cylinders"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 84, 1, 86 )
+mesh = SubResource( 4 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 8 )
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="WaveStartTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="PauseMenu" parent="." instance=ExtResource( 11 )]
+visible = false
+
+[node name="RetryScreen" parent="." instance=ExtResource( 3 )]
+visible = false
+
+[node name="SceneTransition" parent="." instance=ExtResource( 12 )]
+
+[connection signal="pause_game" from="." to="." method="pause_game"]
+[connection signal="unpause_game" from="." to="." method="unpause_game"]
+[connection signal="dead" from="Player" to="." method="_on_Player_dead"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
+[connection signal="timeout" from="WaveStartTimer" to="." method="_on_WaveStartTimer_timeout"]
+[connection signal="unpause_game" from="PauseMenu" to="." method="unpause_game"]
